@@ -27,7 +27,7 @@ jobs:
         run: pwd
 
       - name: Check if repo is cloned
-        run: cd ~/.privado/bin && ls -lha
+        run: cd ~/.privado/bin && ./privado scan ~/work/privado-analytics/privado-analytics
       
       - name: Check working directory path
         run: pwd
