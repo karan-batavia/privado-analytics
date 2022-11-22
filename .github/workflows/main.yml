@@ -15,25 +15,13 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Setup Privado Env
-        run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
+        run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash && exit
 
-      - name: Install ZSH
-        run: sudo apt-get install zsh
-      
-      - name : Activate Bash
-        run : . ~/.bashrc 
-                
-      - name : Activate ZSH
-        run : . ~/.zshrc 
+  scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
 
-      - name : Switch to another terminal
-        run : . ~/.profile 
-
-      - name: Cloning the Repo 
-        uses: actions/checkout@v3
-        with:
-          owner: 'karan-batavia'
-          repository: 'karan-batavia/privado-analytics'
-
-      - name: Scan the Project
-        run: privado scan /privado-analytics && cd /privado-analytics && ls -la
+      - name: Use privado environment
+        run: privado scan /privado-analytics
