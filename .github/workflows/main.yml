@@ -25,11 +25,8 @@ jobs:
         with:
           owner: 'karan-batavia'
           repository: 'karan-batavia/privado-analytics'
-      
-      - name: Check working directory path
-        run: pwd
 
-      - name: Check if repo is cloned
+      - name: Scan the repo using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/privado-analytics/privado-analytics
       
       - name: Output json
