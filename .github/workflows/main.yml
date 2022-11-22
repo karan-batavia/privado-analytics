@@ -27,8 +27,8 @@ jobs:
         run: pwd
 
       - name: Check if repo is cloned
-        run: cd ~/.privado/bin && ./privado scan ~/work/privado-analytics/privado-analytics
+        run: cd ~/.privado/bin && ./privado scan ~/work/privado-analytics/privado-analytics && echo n
       
-      - name: Check working directory path
-        run: pwd
+      - name: Output json
+        run: cat ~/work/privado-analytics/privado-analytics/.privado/privado.json
       
