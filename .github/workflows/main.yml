@@ -17,6 +17,12 @@ jobs:
       - name: Setup Privado Env
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
       
+      - name: Cloning the Repo 
+        uses: actions/checkout@v2
+        with:
+          owner: 'karan-batavia'
+          repository: 'karan-batavia/privado-analytics'
+      
       - name: Exit terminal
         run: exit
 
@@ -26,5 +32,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Use privado environment
-        run: privado scan /privado-analytics
+      - name: Check if repo is cloned
+        run: ls -la
