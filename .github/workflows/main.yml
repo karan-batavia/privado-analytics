@@ -23,14 +23,5 @@ jobs:
           owner: 'karan-batavia'
           repository: 'karan-batavia/privado-analytics'
       
-      - name: Exit terminal
-        run: exit
-
-  scan:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-
       - name: Check if repo is cloned
         run: cd ~ && ls -lha 
