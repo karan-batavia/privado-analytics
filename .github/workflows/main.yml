@@ -18,11 +18,11 @@ jobs:
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
         
       - name : Activate Bash
-        shell : source ~/.bashrc 
+        shell : . ~/.bashrc 
         run: echo $PATH      
         
       - name : Activate ZSH
-        shell : source ~/.zshrc 
+        shell : . ~/.zshrc 
         run: echo $PATH
 
       - name : Switch to another terminal
