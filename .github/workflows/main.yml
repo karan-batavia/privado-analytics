@@ -33,4 +33,4 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Check if repo is cloned
-        run: which privado  
+        run: cd ~/home/runner && ls -lha 
