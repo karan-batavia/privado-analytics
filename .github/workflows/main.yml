@@ -23,5 +23,8 @@ jobs:
           owner: 'karan-batavia'
           repository: 'karan-batavia/privado-analytics'
       
+      - name: Check working directory path
+        run: pwd
+
       - name: Check if repo is cloned
-        run: cd ~ && ls -lha 
+        run: cd ~/.privado/bin && privado scan ~/privado-analytics
