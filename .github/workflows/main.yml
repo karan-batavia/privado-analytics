@@ -28,3 +28,7 @@ jobs:
 
       - name: Check if repo is cloned
         run: cd ~/.privado/bin && ls -lha
+      
+      - name: Check working directory path
+        run: pwd
+      
