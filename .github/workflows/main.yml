@@ -18,16 +18,13 @@ jobs:
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
         
       - name : Activate Bash
-        shell : . ~/.bashrc 
-        run: echo $PATH      
+        run : . ~/.bashrc 
         
       - name : Activate ZSH
-        shell : . ~/.zshrc 
-        run: echo $PATH
+        run : . ~/.zshrc 
 
       - name : Switch to another terminal
-        shell : . ~/.profile 
-        run: echo $PATH
+        run : . ~/.profile 
 
       - name: Cloning the Repo 
         uses: actions/checkout@v2
