@@ -12,14 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       
       - name: Setup Privado Env
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
-        
+
+      - name: Install ZSH
+        run: apt-get install zsh
+      
       - name : Activate Bash
         run : . ~/.bashrc 
-        
+                
       - name : Activate ZSH
         run : . ~/.zshrc 
 
@@ -27,7 +30,7 @@ jobs:
         run : . ~/.profile 
 
       - name: Cloning the Repo 
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           owner: 'karan-batavia'
           repository: 'karan-batavia/privado-analytics'
