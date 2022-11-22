@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           owner: 'karan-batavia'
-          repository: 'privado-analytics'
+          repository: 'karan-batavia/privado-analytics'
 
       - name: Scan the Project
         run: privado scan /privado-analytics && cd /privado-analytics && ls -la
