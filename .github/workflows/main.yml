@@ -32,6 +32,9 @@ jobs:
 
       
       # For Privado-Demo/privado-accounts-api
+      - name: Switch to root directory
+        run: cd ~
+
       - name: Cloning Privado-Demo/privado-accounts-api 
         uses: actions/checkout@v2
         with:
@@ -46,6 +49,8 @@ jobs:
 
 
       # For Privado-Demo/shift-privacy-left-app
+      - name: Switch to root directory
+        run: cd ~
       - name: Cloning Privado-Demo/shift-privacy-left-appi 
         uses: actions/checkout@v2
         with:
