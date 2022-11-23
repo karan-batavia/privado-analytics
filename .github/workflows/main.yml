@@ -49,7 +49,7 @@ jobs:
         with:
           owner: 'Privado-Demo'
           repository: 'Privado-Demo/privado-accounts-api'
-          path: ../
+          path: ~/work
 
 
       - name: Check contents of the folder
