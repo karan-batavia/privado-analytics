@@ -52,7 +52,7 @@ jobs:
 
 
       - name: Check contents of the folder
-        run: cd ~/work/privado-analytics && ls -lha
+        run: cd ~/work/privado-analytics/privado-analytics && ls -lha
 
       # - name: Scan Privado-Demo/privado-accounts-api using privado scan
       #   run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/privado-accounts-api
