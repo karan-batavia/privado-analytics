@@ -13,7 +13,13 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
-      
+
+      - name: Get github workspace path
+        run : echo ${{github.workspace}}
+
+      - name: Get github workspace path v2
+        run : echo $GITHUB_WORKSPACE
+
       - name: Setup Privado Env
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
       
@@ -40,7 +46,7 @@ jobs:
         with:
           owner: 'Privado-Demo'
           repository: 'Privado-Demo/privado-accounts-api'
-          path: ~/work
+          path: ./
 
 
       - name: Check contents of the folder
