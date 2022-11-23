@@ -43,6 +43,7 @@ jobs:
       - name: Read JSON
         run: cd ~/work/results && cat ./privado-analytics.json
       
+      # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api 
         uses: actions/checkout@v2
         with:
@@ -50,7 +51,6 @@ jobs:
           repository: 'Privado-Demo/privado-accounts-api'
           path: ./repos/privado-accounts-api
 
-      # For Privado-Demo/privado-accounts-api
 
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
@@ -59,23 +59,29 @@ jobs:
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/privado-accounts-api
       
       - name: Store JSON
-        run: cd ~/work && mkdir results && cat ${{github.workspace}}/repos/privado-accounts-api/.privado/privado.json > ~/work/results/privado-accounts-api.json
+        run: cd ~/work && cat ${{github.workspace}}/repos/privado-accounts-api/.privado/privado.json > ~/work/results/privado-accounts-api.json
 
         # Read all the generated JSON
       - name: Read JSON
         run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json
-
-      # # For Privado-Demo/shift-privacy-left-app
-      # - name: Cloning Privado-Demo/shift-privacy-left-appi 
-      #   uses: actions/checkout@v2
-      #   with:
-      #     owner: 'Privado-Demo'
-      #     repository: 'Privado-Demo/shift-privacy-left-app'
-      #     path: ~/work
-
-
-      # - name: Scan Privado-Demo/privado-accounts-api using privado scan
-      #   run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/shift-privacy-left-app
+        
       
-      # - name: Store JSON
-      #   run: cd ~/work && mkdir results && cat ~/work/Privado-Demo/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
+      - name: Cloning Privado-Demo/shift-privacy-left-app 
+        uses: actions/checkout@v2
+        with:
+          owner: 'Privado-Demo'
+          repository: 'Privado-Demo/shift-privacy-left-app'
+          path: ./repos/shift-privacy-left-app
+
+      - name: Check contents of the folder
+        run: cd ./repos && ls -lha
+
+      - name: Scan Privado-Demo/shift-privacy-left-app using privado scan
+        run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/shift-privacy-left-app
+      
+      - name: Store JSON
+        run: cd ~/work && cat ${{github.workspace}}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
+
+        # Read all the generated JSON
+      - name: Read JSON
+        run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json && ./shift-privacy-left-app.json
