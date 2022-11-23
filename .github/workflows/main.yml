@@ -17,19 +17,47 @@ jobs:
       - name: Setup Privado Env
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
       
-      - name: Cloning the Repo 
+      # For karan-batavia/privado-analytics
+      - name: Cloning karan-batavia/privado-analytics 
         uses: actions/checkout@v2
         with:
           owner: 'karan-batavia'
           repository: 'karan-batavia/privado-analytics'
 
-      - name: Scan the repo using privado scan
+      - name: Scan karan-batavia/privado-analytics using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/privado-analytics/privado-analytics
       
-
-      - name: Store JSON
+      - name: Store and output JSON
         run: cd ~/work && mkdir results && cat ~/work/privado-analytics/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
 
+      
+      # For Privado-Demo/privado-accounts-api
+      - name: Cloning Privado-Demo/privado-accounts-api 
+        uses: actions/checkout@v2
+        with:
+          owner: 'Privado-Demo'
+          repository: 'Privado-Demo/privado-accounts-api'
+
+      - name: Scan Privado-Demo/privado-accounts-api using privado scan
+        run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/privado-accounts-api
+      
+      - name: Store JSON
+        run: cd ~/work && mkdir results && cat ~/work/Privado-Demo/privado-accounts-api/.privado/privado.json > ~/work/results/privado-accounts-api.json
+
+
+      # For Privado-Demo/shift-privacy-left-app
+      - name: Cloning Privado-Demo/shift-privacy-left-appi 
+        uses: actions/checkout@v2
+        with:
+          owner: 'Privado-Demo'
+          repository: 'Privado-Demo/shift-privacy-left-app'
+
+      - name: Scan Privado-Demo/privado-accounts-api using privado scan
+        run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/shift-privacy-left-app
+      
+      - name: Store JSON
+        run: cd ~/work && mkdir results && cat ~/work/Privado-Demo/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
+
       - name: Read JSON
-        run: cd ~/work/results && cat ./privado-analytics.json
+        run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json && cat ./shift-privacy-left-app.json
       
