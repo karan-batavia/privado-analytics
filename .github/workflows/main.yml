@@ -8,7 +8,7 @@ on:
   
 
 jobs:
-  build:
+  process_repo_1:
     runs-on: ubuntu-latest
     
     steps:
@@ -31,14 +31,16 @@ jobs:
           repository: 'karan-batavia/privado-analytics'
           path: ./repos/privado-analytics
 
+      - name: Check contents of the folder
+        run: cd ./repos && ls -lha
 
-      - name: Scan karan-batavia/privado-analytics using privado scan
-        run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/privado-analytics/privado-analytics
+      # - name: Scan karan-batavia/privado-analytics using privado scan
+      #   run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/privado-analytics/privado-analytics
       
-      - name: Store and output JSON
-        run: cd ~/work && mkdir results && cat ~/work/privado-analytics/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
+      # - name: Store and output JSON
+      #   run: cd ~/work && mkdir results && cat ~/work/privado-analytics/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
 
-  process_repo:
+  process_repo_2:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
