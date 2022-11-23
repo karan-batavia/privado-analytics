@@ -66,6 +66,7 @@ jobs:
         run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json
         
       
+      # For Privado-Demo/shift-privacy-left-app
       - name: Cloning Privado-Demo/shift-privacy-left-app 
         uses: actions/checkout@v2
         with:
@@ -81,7 +82,28 @@ jobs:
       
       - name: Store JSON
         run: cd ~/work && cat ${{github.workspace}}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
+        
+        
+        # For Privado-Demo/shift-privacy-left-app
+      - name: Cloning Alovoa/alovoa 
+        uses: actions/checkout@v2
+        with:
+          owner: 'Alovoa'
+          repository: 'Alovoa/alovoa'
+          path: ./repos/alovoa
+
+      - name: Check contents of the folder
+        run: cd ./repos && ls -lha
+
+      - name: Scan Alovoa/alovoa using privado scan
+        run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/alovoa
+      
+      - name: Store JSON
+        run: cd ~/work && cat ${{github.workspace}}/repos/alovoa/.privado/privado.json > ~/work/results/alovoa.json
 
         # Read all the generated JSON
       - name: Read JSON
-        run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json && ./shift-privacy-left-app.json
+        run: cd ~/work/results && ls -lha
+
+
+      # For Privado-Demo/shift-privacy-left-app
