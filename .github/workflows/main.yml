@@ -38,9 +38,12 @@ jobs:
       - name: Store and output JSON
         run: cd ~/work && mkdir results && cat ~/work/privado-analytics/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
 
-      
-      # For Privado-Demo/privado-accounts-api
+  process_repo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
+      # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api 
         uses: actions/checkout@v2
         with:
@@ -57,26 +60,24 @@ jobs:
       
       - name: Store JSON
         run: cd ~/work && mkdir results && cat ~/work/Privado-Demo/privado-accounts-api/.privado/privado.json > ~/work/results/privado-accounts-api.json
-
-
-      # For Privado-Demo/shift-privacy-left-app
-      - name: Cloning Privado-Demo/shift-privacy-left-appi 
-        uses: actions/checkout@v2
-        with:
-          owner: 'Privado-Demo'
-          repository: 'Privado-Demo/shift-privacy-left-app'
-          path: ~/work
-
-
-      - name: Scan Privado-Demo/privado-accounts-api using privado scan
-        run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/shift-privacy-left-app
       
-      - name: Store JSON
-        run: cd ~/work && mkdir results && cat ~/work/Privado-Demo/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
-
-
 
         # Read all the generated JSON
       - name: Read JSON
-        run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json && cat ./shift-privacy-left-app.json
+        run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json
       
+
+      # # For Privado-Demo/shift-privacy-left-app
+      # - name: Cloning Privado-Demo/shift-privacy-left-appi 
+      #   uses: actions/checkout@v2
+      #   with:
+      #     owner: 'Privado-Demo'
+      #     repository: 'Privado-Demo/shift-privacy-left-app'
+      #     path: ~/work
+
+
+      # - name: Scan Privado-Demo/privado-accounts-api using privado scan
+      #   run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/shift-privacy-left-app
+      
+      # - name: Store JSON
+      #   run: cd ~/work && mkdir results && cat ~/work/Privado-Demo/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
