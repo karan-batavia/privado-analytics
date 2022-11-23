@@ -1,5 +1,7 @@
 name: Monitoring Stability
 
+
+# Triggers when a pull_request or a push action is configured on master branch
 on:
   push:
     branches: ['master']      
@@ -8,21 +10,18 @@ on:
   
 
 jobs:
-  process_repo_1:
+  generate_json_repos:
     runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get github workspace path
-        run : echo ${{github.workspace}}
-
-      - name: Get github workspace path v2
-        run : echo $GITHUB_WORKSPACE
-
+      # Setup privado environment in the pipeline
       - name: Setup Privado Env
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
       
+
+      # For every repository, clone, scan and store the generated JSON
       # For karan-batavia/privado-analytics
       - name: Cloning karan-batavia/privado-analytics 
         uses: actions/checkout@v2
@@ -34,14 +33,13 @@ jobs:
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
 
+
+      # cannot simulate restarting the terminal behavior in the pipeline, so navigated to the installation path to run the tool
       - name: Scan karan-batavia/privado-analytics using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/privado-analytics
-      
+
       - name: Store JSON
         run: cd ~/work && mkdir results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
-      
-      - name: Read JSON
-        run: cd ~/work/results && cat ./privado-analytics.json
       
       # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api 
@@ -52,6 +50,7 @@ jobs:
           path: ./repos/privado-accounts-api
 
 
+      # Check if all the expected directories are present or not
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
 
@@ -61,9 +60,6 @@ jobs:
       - name: Store JSON
         run: cd ~/work && cat ${{github.workspace}}/repos/privado-accounts-api/.privado/privado.json > ~/work/results/privado-accounts-api.json
 
-        # Read all the generated JSON
-      - name: Read JSON
-        run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json
         
       
       # For Privado-Demo/shift-privacy-left-app
@@ -84,26 +80,28 @@ jobs:
         run: cd ~/work && cat ${{github.workspace}}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
         
         
-        # For Privado-Demo/shift-privacy-left-app
-      - name: Cloning Alovoa/alovoa 
-        uses: actions/checkout@v2
-        with:
-          owner: 'Alovoa'
-          repository: 'Alovoa/alovoa'
-          path: ./repos/alovoa
+      # Alovoa/alovoa takes too much time >45 mins
+        # For Alovoa/alovoa
+      # - name: Cloning Alovoa/alovoa 
+      #   uses: actions/checkout@v2
+      #   with:
+      #     owner: 'Alovoa'
+      #     repository: 'Alovoa/alovoa'
+      #     path: ./repos/alovoa
 
-      - name: Check contents of the folder
-        run: cd ./repos && ls -lha
+      # - name: Check contents of the folder
+      #   run: cd ./repos && ls -lha
 
-      - name: Scan Alovoa/alovoa using privado scan
-        run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/alovoa
+      # - name: Scan Alovoa/alovoa using privado scan
+      #   run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/alovoa
       
-      - name: Store JSON
-        run: cd ~/work && cat ${{github.workspace}}/repos/alovoa/.privado/privado.json > ~/work/results/alovoa.json
+      # - name: Store JSON
+      #   run: cd ~/work && cat ${{github.workspace}}/repos/alovoa/.privado/privado.json > ~/work/results/alovoa.json
 
-        # Read all the generated JSON
-      - name: Read JSON
+        # Check if all the generated JSON files are present
+      - name: Log Contents of generated JSON folder
         run: cd ~/work/results && ls -lha
 
 
-      # For Privado-Demo/shift-privacy-left-app
+      # Info -> access all cloned repos at ${GITHUB_WORKSPACE}/repos
+      # Info -> access all generated JSON files at ~/worl/results
