@@ -43,16 +43,6 @@ jobs:
       - name: Read JSON
         run: cd ~/work/results && cat ./privado-analytics.json
       
-
-  process_repo_2:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-
-      - name: Setup Privado Env
-        run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
-      # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api 
         uses: actions/checkout@v2
         with:
@@ -60,6 +50,7 @@ jobs:
           repository: 'Privado-Demo/privado-accounts-api'
           path: ./repos/privado-accounts-api
 
+      # For Privado-Demo/privado-accounts-api
 
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
@@ -72,8 +63,7 @@ jobs:
 
         # Read all the generated JSON
       - name: Read JSON
-        run: cd ~/work/results && cat ./privado-accounts-api.json
-      
+        run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json
 
       # # For Privado-Demo/shift-privacy-left-app
       # - name: Cloning Privado-Demo/shift-privacy-left-appi 
