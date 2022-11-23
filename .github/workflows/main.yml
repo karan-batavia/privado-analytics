@@ -23,6 +23,8 @@ jobs:
         with:
           owner: 'karan-batavia'
           repository: 'karan-batavia/privado-analytics'
+          path: ~/work
+
 
       - name: Scan karan-batavia/privado-analytics using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/privado-analytics/privado-analytics
@@ -40,6 +42,7 @@ jobs:
         with:
           owner: 'Privado-Demo'
           repository: 'Privado-Demo/privado-accounts-api'
+          path: ~/work
 
       - name: Scan Privado-Demo/privado-accounts-api using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/privado-accounts-api
@@ -56,6 +59,8 @@ jobs:
         with:
           owner: 'Privado-Demo'
           repository: 'Privado-Demo/shift-privacy-left-app'
+          path: ~/work
+
 
       - name: Scan Privado-Demo/privado-accounts-api using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/shift-privacy-left-app
@@ -63,6 +68,9 @@ jobs:
       - name: Store JSON
         run: cd ~/work && mkdir results && cat ~/work/Privado-Demo/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
 
+
+
+        # Read all the generated JSON
       - name: Read JSON
         run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json && cat ./shift-privacy-left-app.json
       
