@@ -45,6 +45,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      
+      - name: Setup Privado Env
+        run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
       # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api 
         uses: actions/checkout@v2
