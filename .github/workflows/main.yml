@@ -34,11 +34,11 @@ jobs:
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
 
-      # - name: Scan karan-batavia/privado-analytics using privado scan
-      #   run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/privado-analytics/privado-analytics
+      - name: Scan karan-batavia/privado-analytics using privado scan
+        run: cd ~/.privado/bin && ./privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/privado-analytics
       
-      # - name: Store and output JSON
-      #   run: cd ~/work && mkdir results && cat ~/work/privado-analytics/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
+      - name: Store JSON
+        run: cd ~/work && mkdir results && cat ${GITHUB_WORKSPACE}/repos/privado-analytics.privado/privado.json > ~/work/results/privado-analytics.json
 
   process_repo_2:
     runs-on: ubuntu-latest
@@ -57,13 +57,12 @@ jobs:
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
 
-      # - name: Scan Privado-Demo/privado-accounts-api using privado scan
-      #   run: cd ~/.privado/bin && ./privado scan --skip-upload ~/work/Privado-Demo/privado-accounts-api
+      - name: Scan Privado-Demo/privado-accounts-api using privado scan
+        run: cd ~/.privado/bin && ./privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/privado-accounts-api
       
-      # - name: Store JSON
-      #   run: cd ~/work && mkdir results && cat ~/work/Privado-Demo/privado-accounts-api/.privado/privado.json > ~/work/results/privado-accounts-api.json
-      
-
+      - name: Store JSON
+        run: cd ~/work && mkdir results && cat ${GITHUB_WORKSPACE}/repos/privado-accounts-api/.privado/privado.json > ~/work/results/privado-accounts-api.json
+        
         # Read all the generated JSON
       - name: Read JSON
         run: cd ~/work/results && cat ./privado-analytics.json && cat ./privado-accounts-api.json
