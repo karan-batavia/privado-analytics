@@ -44,16 +44,16 @@ jobs:
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/privado-analytics
 
       - name: Store privado-analytics.json (stable)
-        run: cd ~/work && mkdir stable_results && cat ${GITHUB_WORKSPACE}/repos/privado-analytics/.privado/privado.json > ~/work/stable_results/privado-analytics.json
+        run: cd ${GITHUB_WORKSPACE} && mkdir stable_results && cat ${GITHUB_WORKSPACE}/repos/privado-analytics/.privado/privado.json > ${GITHUB_WORKSPACE}/stable_results/privado-analytics.json
 
       - name: Scan karan-batavia/privado-analytics (dev) using privado scan
         run: cd ~/.privado/bin && PRIVADO_DEV=1 ./privado scan --overwrite --skip-upload ${GITHUB_WORKSPACE}/repos/privado-analytics
 
       - name: Store privado-analytics.json (dev)
-        run: cd ~/work && mkdir dev_results && cat ${GITHUB_WORKSPACE}/repos/privado-analytics/.privado/privado.json > ~/work/dev_results/privado-analytics.json
+        run: cd ${GITHUB_WORKSPACE} && mkdir dev_results && cat ${GITHUB_WORKSPACE}/repos/privado-analytics/.privado/privado.json > ${GITHUB_WORKSPACE}/dev_results/privado-analytics.json
 
       - name: Compare the two results
-        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ~/work/stable_results/privado-analytics.json ~/work/dev_results/privado-analytics.json && ls -lha
+        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ${GITHUB_WORKSPACE}/stable_results/privado-analytics.json ${GITHUB_WORKSPACE}/dev_results/privado-analytics.json && ls -lha
 
       # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api
@@ -71,13 +71,13 @@ jobs:
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/privado-accounts-api
 
       - name: Store privado-accounts-api.json (stable)
-        run: cd ~/work && cat ${GITHUB_WORKSPACE}/repos/privado-accounts-api/.privado/privado.json > ~/work/stable_results/privado-accounts-api.json
+        run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/privado-accounts-api/.privado/privado.json > ${GITHUB_WORKSPACE}/stable_results/privado-accounts-api.json
 
       - name: Scan Privado-Demo/privado-accounts-api (dev) using privado scan
         run: cd ~/.privado/bin && PRIVADO=DEV=1 ./privado scan --overwrite --skip-upload ${GITHUB_WORKSPACE}/repos/privado-accounts-api
 
       - name: Store privado-accounts-api.json (dev)
-        run: cd ~/work && cat ${GITHUB_WORKSPACE}/repos/privado-accounts-api/.privado/privado.json > ~/work/dev_results/privado-accounts-api.json
+        run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/privado-accounts-api/.privado/privado.json > ${GITHUB_WORKSPACE}/dev_results/privado-accounts-api.json
 
       # For Privado-Demo/shift-privacy-left-app
       - name: Cloning Privado-Demo/shift-privacy-left-app
@@ -94,13 +94,13 @@ jobs:
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app
 
       - name: Store shift-privacy-left-app.json (stable)
-        run: cd ~/work && cat ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/stable_results/shift-privacy-left-app.json
+        run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app/.privado/privado.json > ${GITHUB_WORKSPACE}/stable_results/shift-privacy-left-app.json
 
       - name: Scan Privado-Demo/shift-privacy-left-app (dev) using privado scan
         run: cd ~/.privado/bin && PRIVADO=DEV=1 ./privado scan  --overwrite --skip-upload ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app
 
       - name: Store shift-privacy-left-app.json (dev)
-        run: cd ~/work && cat ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/dev_results/shift-privacy-left-app.json
+        run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app/.privado/privado.json > ${GITHUB_WORKSPACE}/dev_results/shift-privacy-left-app.json
 
       # Alovoa/alovoa takes too much time >45 mins
       # For Alovoa/alovoa
@@ -118,15 +118,15 @@ jobs:
       #   run: cd ~/.privado/bin && ./privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/alovoa
 
       # - name: Store JSON
-      #   run: cd ~/work && cat ${GITHUB_WORKSPACE}/repos/alovoa/.privado/privado.json > ~/work/stable_results/alovoa.json
+      #   run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/alovoa/.privado/privado.json > ${GITHUB_WORKSPACE}/stable_results/alovoa.json
 
       # Check if all the generated JSON files are present
       - name: Log Contents of generated JSON folder (stable)
-        run: cd ~/work/stable_results && ls -lh
+        run: cd ${GITHUB_WORKSPACE}/stable_results && ls -lh
 
       - name: Log Contents of generated JSON folder (dev)
-        run: cd ~/work/dev_results && ls -lha
+        run: cd ${GITHUB_WORKSPACE}/dev_results && ls -lha
 
       # Info -> access all cloned repos at ${GITHUB_WORKSPACE}/repos
-      # Info -> access all generated JSON (stable privado) files at ~/work/stable_results
-      # Info -> access all generated JSON  (dev privado ) files at ~/work/dev_results
+      # Info -> access all generated JSON (stable privado) files at ${GITHUB_WORKSPACE}/stable_results
+      # Info -> access all generated JSON  (dev privado ) files at ${GITHUB_WORKSPACE}/dev_results
