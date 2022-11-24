@@ -126,9 +126,13 @@ jobs:
       #   run: cd ~/work && cat ${{github.workspace}}/repos/alovoa/.privado/privado.json > ~/work/stable_results/alovoa.json
 
         # Check if all the generated JSON files are present
-      - name: Log Contents of generated JSON folder
-        run: cd ~/work/stable_results && ls -lha
+      - name: Log Contents of generated JSON folder (stable)
+        run: cd ~/work/stable_results && ls -lh 
+
+      - name: Log Contents of generated JSON folder (dev)
+        run: cd ~/work/dev_results && ls -lha 
 
 
       # Info -> access all cloned repos at ${GITHUB_WORKSPACE}/repos
-      # Info -> access all generated JSON files at ~/worl/stable_results
+      # Info -> access all generated JSON (stable privado) files at ~/work/stable_results
+      # Info -> access all generated JSON  (dev privado ) files at ~/work/dev_results
