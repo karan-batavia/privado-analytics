@@ -38,13 +38,13 @@ jobs:
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/privado-analytics
         
       - name: Scan karan-batavia/privado-analytics (dev) using privado scan
-        run: cd ~/.privado/bin && PRIVADO_DEV=1 ./privado scan --skip-upload ${{github.workspace}}/repos/privado-analytics
+        run: cd ~/.privado/bin && PRIVADO_DEV=1 ./privado scan --overwrite --skip-upload ${{github.workspace}}/repos/privado-analytics
 
       - name: Store privado-analytics.json (stable)
-        run: cd ~/work && mkdir stable_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
+        run: cd ~/work && mkdir stable_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/stable_results/privado-analytics.json
 
       - name: Store privado-analytics.json (dev)
-        run: cd ~/work && mkdir dev_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
+        run: cd ~/work && mkdir dev_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/dev_results/privado-analytics.json
       
       # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api 
