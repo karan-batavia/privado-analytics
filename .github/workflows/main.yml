@@ -34,7 +34,7 @@ jobs:
         run: cd ./repos && ls -lha
 
       # cannot simulate restarting the terminal behavior in the pipeline, so navigated to the installation path to run the tool
-      - name: Scan karan-batavia/privado-analytics (main) using privado scan
+      - name: Scan karan-batavia/privado-analytics (stable) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/privado-analytics
         
       - name: Scan karan-batavia/privado-analytics (dev) using privado scan
@@ -46,6 +46,10 @@ jobs:
       - name: Store privado-analytics.json (dev)
         run: cd ~/work && mkdir dev_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/dev_results/privado-analytics.json
       
+
+
+
+
       # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api 
         uses: actions/checkout@v2
@@ -59,14 +63,25 @@ jobs:
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
 
-      - name: Scan Privado-Demo/privado-accounts-api using privado scan
+      - name: Scan Privado-Demo/privado-accounts-api (stable) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/privado-accounts-api
+        
+      - name: Scan Privado-Demo/privado-accounts-api (dev) using privado scan
+        run: cd ~/.privado/bin && PRIVADO=DEV=1 ./privado scan --skip-upload ${{github.workspace}}/repos/privado-accounts-api
       
-      - name: Store privado-accounts-api.json
-        run: cd ~/work && cat ${{github.workspace}}/repos/privado-accounts-api/.privado/privado.json > ~/work/results/privado-accounts-api.json
+      - name: Store privado-accounts-api.json (stable)
+        run: cd ~/work && cat ${{github.workspace}}/repos/privado-accounts-api/.privado/privado.json > ~/work/stable_results/privado-accounts-api.json
+        
+        
+      - name: Store privado-accounts-api.json (dev)
+        run: cd ~/work && cat ${{github.workspace}}/repos/privado-accounts-api/.privado/privado.json > ~/work/dev_results/privado-accounts-api.json
 
         
       
+
+
+
+
       # For Privado-Demo/shift-privacy-left-app
       - name: Cloning Privado-Demo/shift-privacy-left-app 
         uses: actions/checkout@v2
@@ -78,11 +93,17 @@ jobs:
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
 
-      - name: Scan Privado-Demo/shift-privacy-left-app using privado scan
+      - name: Scan Privado-Demo/shift-privacy-left-app (stable) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/shift-privacy-left-app
+        
+      - name: Scan Privado-Demo/shift-privacy-left-app (dev) using privado scan
+        run: cd ~/.privado/bin && PRIVADO=DEV=1 ./privado scan --skip-upload ${{github.workspace}}/repos/shift-privacy-left-app
       
-      - name: Store shift-privacy-left-app.json
-        run: cd ~/work && cat ${{github.workspace}}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/results/shift-privacy-left-app.json
+      - name: Store shift-privacy-left-app.json (stable)
+        run: cd ~/work && cat ${{github.workspace}}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/stable_results/shift-privacy-left-app.json
+        
+      - name: Store shift-privacy-left-app.json (dev)
+        run: cd ~/work && cat ${{github.workspace}}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/dev_results/shift-privacy-left-app.json
         
         
       # Alovoa/alovoa takes too much time >45 mins
@@ -101,12 +122,12 @@ jobs:
       #   run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/alovoa
       
       # - name: Store JSON
-      #   run: cd ~/work && cat ${{github.workspace}}/repos/alovoa/.privado/privado.json > ~/work/results/alovoa.json
+      #   run: cd ~/work && cat ${{github.workspace}}/repos/alovoa/.privado/privado.json > ~/work/stable_results/alovoa.json
 
         # Check if all the generated JSON files are present
       - name: Log Contents of generated JSON folder
-        run: cd ~/work/results && ls -lha
+        run: cd ~/work/stable_results && ls -lha
 
 
       # Info -> access all cloned repos at ${GITHUB_WORKSPACE}/repos
-      # Info -> access all generated JSON files at ~/worl/results
+      # Info -> access all generated JSON files at ~/worl/stable_results
