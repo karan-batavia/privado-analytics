@@ -28,7 +28,7 @@ jobs:
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
     
       - name: Download the comparison tool
-        run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/tools/compare_json.py
+        run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/tools/compare.py
 
       # For every repository, clone, scan and store the generated JSON
       # For karan-batavia/privado-analytics
