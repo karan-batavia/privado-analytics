@@ -14,9 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Folder to store reports
+        run: mkdir ${GITHUB_WORKSPACE}/reports
 
-      - name: Check crontab
-        run: crontab -e
+      - name: Initialize memory and cpu monitoring
+        run: top -b > ${GITHUB_WORKSPACE}/reports/output.txt &
 
       # Setup python 3.8 in the pipeline
       - name: Setup Python 3.8
@@ -39,9 +41,6 @@ jobs:
           owner: "karan-batavia"
           repository: "karan-batavia/privado-analytics"
           path: ./repos/privado-analytics
-
-      - name: Check contents of the folder
-        run: cd ./repos && ls -lha
 
       # cannot simulate restarting the terminal behavior in the pipeline, so navigated to the installation path to run the tool
       - name: Scan karan-batavia/privado-analytics (stable) using privado scan
@@ -67,10 +66,6 @@ jobs:
           repository: "Privado-Demo/privado-accounts-api"
           path: ./repos/privado-accounts-api
 
-      # Check if all the expected directories are present or not
-      - name: Check contents of the folder
-        run: cd ./repos && ls -lha
-
       - name: Scan Privado-Demo/privado-accounts-api (stable) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/privado-accounts-api
 
@@ -91,9 +86,6 @@ jobs:
           repository: "Privado-Demo/shift-privacy-left-app"
           path: ./repos/shift-privacy-left-app
 
-      - name: Check contents of the folder
-        run: cd ./repos && ls -lha
-
       - name: Scan Privado-Demo/shift-privacy-left-app (stable) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app
 
@@ -105,6 +97,12 @@ jobs:
 
       - name: Store shift-privacy-left-app.json (dev)
         run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app/.privado/privado.json > ${GITHUB_WORKSPACE}/dev_results/shift-privacy-left-app.json
+
+      - name: Store CPU and Memory usage data
+        run: cat ${GITHUB_WORKSPACE}/reports/output.txt | grep privado > ${GITHUB_WORKSPACE}/reports/results.txt
+
+      - name: Output privado specific report
+        run: cat ${GITHUB_WORKSPACE}/reports/results.txt
 
       # Alovoa/alovoa takes too much time >45 mins
       # For Alovoa/alovoa
@@ -123,13 +121,6 @@ jobs:
 
       # - name: Store JSON
       #   run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/alovoa/.privado/privado.json > ${GITHUB_WORKSPACE}/stable_results/alovoa.json
-
-      # Check if all the generated JSON files are present
-      - name: Log Contents of generated JSON folder (stable)
-        run: cd ${GITHUB_WORKSPACE}/stable_results && ls -lh
-
-      - name: Log Contents of generated JSON folder (dev)
-        run: cd ${GITHUB_WORKSPACE}/dev_results && ls -lha
 
       # Info -> access all cloned repos at ${GITHUB_WORKSPACE}/repos
       # Info -> access all generated JSON (stable privado) files at ${GITHUB_WORKSPACE}/stable_results
