@@ -33,13 +33,18 @@ jobs:
       - name: Check contents of the folder
         run: cd ./repos && ls -lha
 
-
       # cannot simulate restarting the terminal behavior in the pipeline, so navigated to the installation path to run the tool
-      - name: Scan karan-batavia/privado-analytics using privado scan
+      - name: Scan karan-batavia/privado-analytics (main) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/privado-analytics
+        
+      - name: Scan karan-batavia/privado-analytics (dev) using privado scan
+        run: cd ~/.privado/bin && PRIVADO_DEV=1 ./privado scan --skip-upload ${{github.workspace}}/repos/privado-analytics
 
-      - name: Store privado-analytics.json
-        run: cd ~/work && mkdir results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
+      - name: Store privado-analytics.json (stable)
+        run: cd ~/work && mkdir stable_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
+
+      - name: Store privado-analytics.json (dev)
+        run: cd ~/work && mkdir dev_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/results/privado-analytics.json
       
       # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api 
