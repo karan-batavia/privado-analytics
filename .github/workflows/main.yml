@@ -53,7 +53,7 @@ jobs:
         run: cd ~/work && mkdir dev_results && cat ${GITHUB_WORKSPACE}/repos/privado-analytics/.privado/privado.json > ~/work/dev_results/privado-analytics.json
 
       - name: Compare the two results
-        run: python ${GITHUB_WORKSPACE}/tools/compare_json.py ${GITHUB_WORKSPACE}/work/stable_results/privado-analytics.json ${GITHUB_WORKSPACE}/work/dev_results/privado-analytics.json
+        run: cd ${GITHUB_WORKSPACE} && python ${GITHUB_WORKSPACE}/tools/compare_json.py ${GITHUB_WORKSPACE}/work/stable_results/privado-analytics.json ${GITHUB_WORKSPACE}/work/dev_results/privado-analytics.json
 
       # For Privado-Demo/privado-accounts-api
       - name: Cloning Privado-Demo/privado-accounts-api
