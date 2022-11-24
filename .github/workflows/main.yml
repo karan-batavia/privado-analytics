@@ -36,12 +36,13 @@ jobs:
       # cannot simulate restarting the terminal behavior in the pipeline, so navigated to the installation path to run the tool
       - name: Scan karan-batavia/privado-analytics (stable) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/privado-analytics
+      
+      - name: Store privado-analytics.json (stable)
+        run: cd ~/work && mkdir stable_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/stable_results/privado-analytics.json
         
       - name: Scan karan-batavia/privado-analytics (dev) using privado scan
         run: cd ~/.privado/bin && PRIVADO_DEV=1 ./privado scan --overwrite --skip-upload ${{github.workspace}}/repos/privado-analytics
 
-      - name: Store privado-analytics.json (stable)
-        run: cd ~/work && mkdir stable_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/stable_results/privado-analytics.json
 
       - name: Store privado-analytics.json (dev)
         run: cd ~/work && mkdir dev_results && cat ${{github.workspace}}/repos/privado-analytics/.privado/privado.json > ~/work/dev_results/privado-analytics.json
@@ -65,13 +66,13 @@ jobs:
 
       - name: Scan Privado-Demo/privado-accounts-api (stable) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/privado-accounts-api
-        
-      - name: Scan Privado-Demo/privado-accounts-api (dev) using privado scan
-        run: cd ~/.privado/bin && PRIVADO=DEV=1 ./privado scan --skip-upload ${{github.workspace}}/repos/privado-accounts-api
       
       - name: Store privado-accounts-api.json (stable)
         run: cd ~/work && cat ${{github.workspace}}/repos/privado-accounts-api/.privado/privado.json > ~/work/stable_results/privado-accounts-api.json
         
+        
+      - name: Scan Privado-Demo/privado-accounts-api (dev) using privado scan
+        run: cd ~/.privado/bin && PRIVADO=DEV=1 ./privado scan --overwrite --skip-upload ${{github.workspace}}/repos/privado-accounts-api
         
       - name: Store privado-accounts-api.json (dev)
         run: cd ~/work && cat ${{github.workspace}}/repos/privado-accounts-api/.privado/privado.json > ~/work/dev_results/privado-accounts-api.json
@@ -95,12 +96,12 @@ jobs:
 
       - name: Scan Privado-Demo/shift-privacy-left-app (stable) using privado scan
         run: cd ~/.privado/bin && ./privado scan --skip-upload ${{github.workspace}}/repos/shift-privacy-left-app
-        
-      - name: Scan Privado-Demo/shift-privacy-left-app (dev) using privado scan
-        run: cd ~/.privado/bin && PRIVADO=DEV=1 ./privado scan --skip-upload ${{github.workspace}}/repos/shift-privacy-left-app
       
       - name: Store shift-privacy-left-app.json (stable)
         run: cd ~/work && cat ${{github.workspace}}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/stable_results/shift-privacy-left-app.json
+        
+      - name: Scan Privado-Demo/shift-privacy-left-app (dev) using privado scan
+        run: cd ~/.privado/bin && PRIVADO=DEV=1 ./privado scan  --overwrite --skip-upload ${{github.workspace}}/repos/shift-privacy-left-app
         
       - name: Store shift-privacy-left-app.json (dev)
         run: cd ~/work && cat ${{github.workspace}}/repos/shift-privacy-left-app/.privado/privado.json > ~/work/dev_results/shift-privacy-left-app.json
