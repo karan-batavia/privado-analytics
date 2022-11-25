@@ -110,7 +110,7 @@ jobs:
         run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ${GITHUB_WORKSPACE}/stable_results/shift-privacy-left-app.json ${GITHUB_WORKSPACE}/dev_results/shift-privacy-left-app.json && ls -lha && cat ./shift-privacy-left-app.csv
 
       - name: Check if reports are generated
-        run: cd ${GITHUB_WORKSPACE}/tools && ls -lha
+        run: cd ${GITHUB_WORKSPACE}/tools && cat results_1.txt
 
       # Alovoa/alovoa takes too much time >45 mins
       # For Alovoa/alovoa
