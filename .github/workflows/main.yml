@@ -17,9 +17,6 @@ jobs:
       - name: Folder to store reports
         run: mkdir ${GITHUB_WORKSPACE}/reports
 
-      - name: Initialize memory and cpu monitoring
-        run: top -b > ${GITHUB_WORKSPACE}/reports/output.txt &
-
       # Setup python 3.8 in the pipeline
       - name: Setup Python 3.8
         uses: actions/setup-python@v4
@@ -31,7 +28,7 @@ jobs:
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
 
       - name: Download the comparison tool
-        run: mkdir ${GITHUB_WORKSPACE}/tools && curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/tools/compare.py
+        run: mkdir ${GITHUB_WORKSPACE}/tools && curl https://raw.githubusercontent.com/ankit-privado/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/tools/compare.py
 
       # For every repository, clone, scan and store the generated JSON
       # For karan-batavia/privado-analytics
@@ -78,6 +75,10 @@ jobs:
       - name: Store privado-accounts-api.json (dev)
         run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/privado-accounts-api/.privado/privado.json > ${GITHUB_WORKSPACE}/dev_results/privado-accounts-api.json
 
+
+      - name: Compare the two results
+        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ${GITHUB_WORKSPACE}/stable_results/privado-accounts-api.json ${GITHUB_WORKSPACE}/dev_results/privado-accounts-api.json && ls -lha && cat ./privado-accounts-api.csv
+
       # For Privado-Demo/shift-privacy-left-app
       - name: Cloning Privado-Demo/shift-privacy-left-app
         uses: actions/checkout@v2
@@ -98,11 +99,11 @@ jobs:
       - name: Store shift-privacy-left-app.json (dev)
         run: cd ${GITHUB_WORKSPACE} && cat ${GITHUB_WORKSPACE}/repos/shift-privacy-left-app/.privado/privado.json > ${GITHUB_WORKSPACE}/dev_results/shift-privacy-left-app.json
 
-      - name: Store CPU and Memory usage data
-        run: cat ${GITHUB_WORKSPACE}/reports/output.txt | grep privado > ${GITHUB_WORKSPACE}/reports/results.txt
+      - name: Compare the two results
+        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ${GITHUB_WORKSPACE}/stable_results/shift-privacy-left-app.json ${GITHUB_WORKSPACE}/dev_results/shift-privacy-left-app.json && ls -lha && cat ./shift-privacy-left-app.csv
 
-      - name: Output privado specific report
-        run: cat ${GITHUB_WORKSPACE}/reports/results.txt
+      - name: Check if reports are generated
+        run: cd ${GITHUB_WORKSPACE}/tools && ls -lha
 
       # Alovoa/alovoa takes too much time >45 mins
       # For Alovoa/alovoa
