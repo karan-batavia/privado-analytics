@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Folder to store reports
-        run: mkdir ${GITHUB_WORKSPACE}/reports
+        run: mkdir ${GITHUB_WORKSPACE}/reports && echo ${GITHUB_WORKSPACE}
 
       - name: Download CPU and Memory usage capture tool
         run: mkdir ${GITHUB_WORKSPACE}/tools && curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/capture_usage.sh --output ${GITHUB_WORKSPACE}/tools/capture_usage.sh
@@ -117,7 +117,7 @@ jobs:
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: ${GITHUB_WORKSPACE}/tools/*.csv
+          file_path: 'home/runner/tools/*.csv'
           initial_comment: 'post by slack-upload-file'
           # thread_ts: 'option'
 
