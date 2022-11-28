@@ -117,8 +117,9 @@ jobs:
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: '${GITHUB_WORKSPACE}/tools/privado-analytics.csv'
+          file_path: '/home/runner/work/privado-analytics/privado-analytics/tools/privado-analytics.csv'
           initial_comment: 'post by slack-upload-file'
+          file_type: 'csv'
           # thread_ts: 'option'
 
       # Alovoa/alovoa takes too much time >45 mins
