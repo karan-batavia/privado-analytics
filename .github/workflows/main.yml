@@ -112,6 +112,15 @@ jobs:
       - name: Check if reports are generated
         run: cd ${GITHUB_WORKSPACE}/tools && cat results_1.txt
 
+      - name: Post results to slack
+        uses: MeilCli/slack-upload-file@v3
+        with:
+          slack_token: ${{ secrets.SLACK_TOKEN }}
+          channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+          file_path: ${GITHUB_WORKSPACE}/tpols/*.csv
+          initial_comment: 'post by slack-upload-file'
+          # thread_ts: 'option'
+
       # Alovoa/alovoa takes too much time >45 mins
       # For Alovoa/alovoa
       # - name: Cloning Alovoa/alovoa
