@@ -110,14 +110,14 @@ jobs:
         run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ${GITHUB_WORKSPACE}/stable_results/shift-privacy-left-app.json ${GITHUB_WORKSPACE}/dev_results/shift-privacy-left-app.json && ls -lha && cat ./shift-privacy-left-app.csv
 
       - name: Check if reports are generated
-        run: cd ${GITHUB_WORKSPACE}/tools && cat results_1.txt
+        run: cd ${GITHUB_WORKSPACE}/tools && ls -lha
 
       - name: Post results to slack
         uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: ${GITHUB_WORKSPACE}/tools/*.csv
+          file_path: '${GITHUB_WORKSPACE}/tools/*.csv'
           initial_comment: 'post by slack-upload-file'
           # thread_ts: 'option'
 
