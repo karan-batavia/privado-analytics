@@ -105,7 +105,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@master
         with:
-          path: ${GITHUB_WORKSPACE}/results
+          path: ./
       
       - name: Download the comparison tool
         run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/compare.py
