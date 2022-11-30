@@ -25,7 +25,7 @@ jobs:
 
 
       - name: Download CPU and Memory usage capture tool
-        run: mkdir ${GITHUB_WORKSPACE}/tools && curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/capture_usage.sh --output ${GITHUB_WORKSPACE}/tools/capture_usage.sh
+        run: mkdir ${GITHUB_WORKSPACE}/tools && curl https://raw.githubusercontent.com/Privado-Inc/privado-core-results-monitoring/main/capture_usage.sh --output ${GITHUB_WORKSPACE}/tools/capture_usage.sh
 
       - name: Start monitoring cpu and memory usage
         run: bash ${GITHUB_WORKSPACE}/tools/capture_usage.sh &
@@ -108,7 +108,7 @@ jobs:
           path: ./results
       
       - name: Download the comparison tool
-        run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/compare.py
+        run: curl https://raw.githubusercontent.com/Privado-Inc/privado-core-results-monitoring/main/compare.py --output ${GITHUB_WORKSPACE}/tools/compare.py
 
       - name: Check contents of folder
         run: cd ./results/privado-analytics_stable/ && ls -lha
