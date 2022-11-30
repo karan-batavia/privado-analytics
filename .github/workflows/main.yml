@@ -55,7 +55,7 @@ jobs:
         run: ~/.privado/bin/privado scan --skip-upload ${GITHUB_WORKSPACE}/repos/${{matrix.repo_name}}
 
       - name: Store ${{matrix.repo_name}}.json (stable)
-        run: mkdir ${GITHUB_WORKSPACE}/stable_results && cat ${GITHUB_WORKSPACE}/repos/.privado/privado.json > ${GITHUB_WORKSPACE}/stable_results/${{matrix.repo_name}}.json
+        run: mkdir ${GITHUB_WORKSPACE}/stable_results && cat ${GITHUB_WORKSPACE}/repos/${{matrix.repo_name}}/.privado/privado.json > ${GITHUB_WORKSPACE}/stable_results/${{matrix.repo_name}}.json
 
       - name: Scan ${{matrix.owner}}/${{matrix.repo_name}} (dev) using privado scan
         run: cd ~/.privado/bin && PRIVADO_DEV=1 ./privado scan --overwrite --skip-upload ${GITHUB_WORKSPACE}/repos/${{matrix.repo_name}}
