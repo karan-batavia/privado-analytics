@@ -57,12 +57,6 @@ jobs:
       - name: Store ${{matrix.repo_name}}.json (stable)
         run: mkdir ${GITHUB_WORKSPACE}/stable_results && cat ${GITHUB_WORKSPACE}/repos/${{matrix.repo_name}}/.privado/privado.json > ${GITHUB_WORKSPACE}/stable_results/${{matrix.repo_name}}.json
 
-      - name: Pass JSON (stable) to the next job
-        uses: actions/upload-artifact@master
-        with:
-          name: ${{matrix.repo_name}} (stable)
-          path: ${GITHUB_WORKSPACE}/repos/${{matrix.repo_name}}/.privado/privado.json
-
       - name: Scan ${{matrix.owner}}/${{matrix.repo_name}} (dev) using privado scan
         run: cd ~/.privado/bin && PRIVADO_DEV=1 ./privado scan --overwrite --skip-upload ${GITHUB_WORKSPACE}/repos/${{matrix.repo_name}}
 
@@ -75,8 +69,14 @@ jobs:
       - name: Pass JSON (stable) to the next job
         uses: actions/upload-artifact@master
         with:
-          name: ${{matrix.repo_name}} (dev)
-          path: ${GITHUB_WORKSPACE}/repos/${{matrix.repo_name}}/.privado/privado.json
+          name: ${{matrix.repo_name}}_stable.json
+          path: ${GITHUB_WORKSPACE}/stable_results/${{matrix.repo_name}}.json
+
+      - name: Pass JSON (dev) to the next job
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{matrix.repo_name}}_dev.json
+          path: ${GITHUB_WORKSPACE}/dev_results/${{matrix.repo_name}}.json
 
         # For every repository, clone, scan and store the generated JSON
         # For karan-batavia/${{matrix.repo_name}}
