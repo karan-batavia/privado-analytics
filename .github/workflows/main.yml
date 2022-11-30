@@ -43,7 +43,7 @@ jobs:
       - name: Cloning karan-batavia/privado-analytics
         uses: actions/checkout@v2
         with:
-          owner: "karan-batavia"
+          owner: ${GITHUB_REPOSITORY_OWNER}
           repository: "karan-batavia/privado-analytics"
           path: ./repos/privado-analytics
 
