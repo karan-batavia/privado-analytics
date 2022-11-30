@@ -11,15 +11,8 @@ jobs:
   generate_json_repos:
     strategy:
       matrix:
-        include:
-          - owner: "${{matrix.owner}}"
-            repo_name: "privado-analytics"
-
-          - owner: "${{matrix.owner}}"
-            repo_name: "privado-accounts-api"
-          
-          - owner: "${{matrix.owner}}"
-            repo_name: "shift-privacy-left-app"
+        owner: ["Privado-Demo"]
+        repo_name: ["privado-analytics", "privado-accounts-api", "shift-privacy-left-app"]
 
     continue-on-error: false
     runs-on: ubuntu-latest
@@ -72,7 +65,8 @@ jobs:
 
       - name: Compare the two results
         run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ${GITHUB_WORKSPACE}/stable_results/${{matrix.repo_name}}.json ${GITHUB_WORKSPACE}/dev_results/${{matrix.repo_name}}.json 
-        
+
+     
         # For every repository, clone, scan and store the generated JSON
         # For karan-batavia/${{matrix.repo_name}}
       
@@ -99,3 +93,8 @@ jobs:
       # Info -> access all generated JSON (stable privado) files at ${GITHUB_WORKSPACE}/stable_results
       # Info -> access all generated JSON  (dev privado ) files at ${GITHUB_WORKSPACE}/dev_results
       # Info -> access all the csv reports at ${GITHUB_WORKSPACE}/tools
+  check_files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check
+        run: ls -lha
