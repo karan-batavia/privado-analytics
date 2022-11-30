@@ -107,11 +107,9 @@ jobs:
   check_files:
     needs: generate_json_repos
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        repo_name: ["privado-analytics", "privado-accounts-api", "shift-privacy-left-app"]
-        steps:
-          - uses: actions/download-artifact@master
-            with:
-              path: ${GITHUB_WORKSPACE}/results
-          - run: cd ${GITHUB_WORKSPACE}/results && ls -lha
+
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          path: ${GITHUB_WORKSPACE}/results
+      - run: cd ${GITHUB_WORKSPACE}/results && ls -lha
