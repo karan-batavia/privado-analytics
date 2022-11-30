@@ -9,16 +9,13 @@ on:
 
 jobs:
   generate_json_repos:
-
-
-
     strategy:
       matrix:
         owner: [""]
         repo_name: [""]
         include:
           - owner: "Privado-Demo"
-            repo_name: "${{matrix.repo_name}}"
+            repo_name: "privado-analytics"
 
           - owner: "Privado-Demo"
             repo_name: "privado-accounts-api"
