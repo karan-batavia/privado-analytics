@@ -11,8 +11,6 @@ jobs:
   generate_json_repos:
     strategy:
       matrix:
-        owner: [""]
-        repo_name: [""]
         include:
           - owner: "Privado-Demo"
             repo_name: "privado-analytics"
