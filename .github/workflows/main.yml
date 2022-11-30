@@ -70,13 +70,13 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: ${{matrix.repo_name}}_stable.json
-          path: ${GITHUB_WORKSPACE}/stable_results/${{matrix.repo_name}}.json
+          path: /home/runner/work/privado-analytics/privado-analytics/stable_results/${{matrix.repo_name}}.json
 
       - name: Pass JSON (dev) to the next job
         uses: actions/upload-artifact@master
         with:
           name: ${{matrix.repo_name}}_dev.json
-          path: ${GITHUB_WORKSPACE}/dev_results/${{matrix.repo_name}}.json
+          path: /home/runner/work/privado-analytics/privado-analytics/dev_results/${{matrix.repo_name}}.json
 
         # For every repository, clone, scan and store the generated JSON
         # For karan-batavia/${{matrix.repo_name}}
