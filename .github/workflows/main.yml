@@ -40,10 +40,6 @@ jobs:
       - name: Setup Privado Env
         run: curl -o- https://raw.githubusercontent.com/Privado-Inc/privado-cli/main/install.sh | bash
 
-      - name: Download the comparison tool
-        run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/tools/compare.py
-
-
       - name: Clone repository
         uses: actions/checkout@v2
         with:
@@ -62,9 +58,6 @@ jobs:
 
       - name: Store ${{matrix.repo_name}}.json (dev)
         run: mkdir ${GITHUB_WORKSPACE}/dev_results && cat ${GITHUB_WORKSPACE}/repos/${{matrix.repo_name}}/.privado/privado.json > ${GITHUB_WORKSPACE}/dev_results/${{matrix.repo_name}}.json
-
-      - name: Compare the two results
-        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ${GITHUB_WORKSPACE}/stable_results/${{matrix.repo_name}}.json ${GITHUB_WORKSPACE}/dev_results/${{matrix.repo_name}}.json 
 
       - name: Pass JSON (stable) to the next job
         uses: actions/upload-artifact@master
@@ -108,8 +101,30 @@ jobs:
     needs: generate_json_repos
     runs-on: ubuntu-latest
 
+
     steps:
       - uses: actions/download-artifact@master
         with:
           path: ${GITHUB_WORKSPACE}/results
-      - run: cd ${GITHUB_WORKSPACE}/results && ls -lha
+      
+      - name: Download the comparison tool
+        run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/tools/compare.py
+    
+      - name: Compare the two results (privado-analytics)
+        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ./results/privado-analytics_stable.json ./results/privado-analytics_dev.json 
+      
+      - name: Compare the two results (privado-accounts-api)
+        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ./results/privado-accounts-api_stable.json ./results/privado-accounts-api_dev.json
+
+      - name: Compare the two results (shift-privacy-left-app)
+        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ./results/shift-privacy-left-app_stable.json ./results/shift-privacy-left-app_dev.json
+
+
+      - name: Post results to slack
+        uses: MeilCli/slack-upload-file@v3
+        with:
+          slack_token: ${{ secrets.SLACK_TOKEN }}
+          channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+          file_path: '/home/runner/work/privado-analytics/privado-analytics/tools/comparison_report.csv'
+          initial_comment: 'Comparison Results generated.'
+          file_type: 'csv'
