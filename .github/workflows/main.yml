@@ -95,6 +95,7 @@ jobs:
       # Info -> access all the csv reports at ${GITHUB_WORKSPACE}/tools
   check_files:
     runs-on: ubuntu-latest
+    needs: generate_json_repos
     steps:
       - name: Check
         run: ls -lha
