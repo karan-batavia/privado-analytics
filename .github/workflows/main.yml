@@ -108,7 +108,7 @@ jobs:
           path: ./results
       
       - name: Download the comparison tool
-        run: curl https://raw.githubusercontent.com/Privado-Inc/privado-core-results-monitoring/main/compare.py --output ${GITHUB_WORKSPACE}/tools/compare.py
+        run: curl https://raw.githubusercontent.com/Privado-Inc/privado-core-results-monitoring/main/compare.py --output ${GITHUB_WORKSPACE}/compare.py
 
       - name: Check contents of folder
         run: cd ./results/privado-analytics_stable/ && ls -lha
