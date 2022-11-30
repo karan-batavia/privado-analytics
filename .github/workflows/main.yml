@@ -106,11 +106,11 @@ jobs:
       # Info -> access all the csv reports at ${GITHUB_WORKSPACE}/tools
   check_files:
     needs: generate_json_repos
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@master
-        with:
-          name: idk.json
-          path: ${GITHUB_WORKSPACE}
-      - run: ${GITHUB_WORKSPACE}/idk.txt
-        
+    strategy:
+      matrix:
+        repo_name: ["privado-analytics", "privado-accounts-api", "shift-privacy-left-app"]
+        steps:
+          - uses: actions/download-artifact@master
+            with:
+              path: ${GITHUB_WORKSPACE}/results
+          - run: cd ${GITHUB_WORKSPACE}/results && ls -lha
