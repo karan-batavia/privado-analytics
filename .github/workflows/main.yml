@@ -111,13 +111,13 @@ jobs:
         run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/compare.py
     
       - name: Compare the two results (privado-analytics)
-        run: python ./compare.py ./results/privado-analytics_stable.json ./results/privado-analytics_dev.json 
+        run: python ./compare.py ./privado-analytics_stable.json ./privado-analytics_dev.json 
       
       - name: Compare the two results (privado-accounts-api)
-        run: python ./compare.py ./results/privado-accounts-api_stable.json ./results/privado-accounts-api_dev.json
+        run: python ./compare.py ./privado-accounts-api_stable.json ./privado-accounts-api_dev.json
 
       - name: Compare the two results (shift-privacy-left-app)
-        run: python ./compare.py ./results/shift-privacy-left-app_stable.json ./results/shift-privacy-left-app_dev.json
+        run: python ./compare.py ./shift-privacy-left-app_stable.json ./shift-privacy-left-app_dev.json
 
 
       - name: Post results to slack
