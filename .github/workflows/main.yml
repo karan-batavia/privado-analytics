@@ -108,16 +108,16 @@ jobs:
           path: ${GITHUB_WORKSPACE}/results
       
       - name: Download the comparison tool
-        run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/tools/compare.py
+        run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/compare.py
     
       - name: Compare the two results (privado-analytics)
-        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ./results/privado-analytics_stable.json ./results/privado-analytics_dev.json 
+        run: python ./compare.py ./results/privado-analytics_stable.json ./results/privado-analytics_dev.json 
       
       - name: Compare the two results (privado-accounts-api)
-        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ./results/privado-accounts-api_stable.json ./results/privado-accounts-api_dev.json
+        run: python ./compare.py ./results/privado-accounts-api_stable.json ./results/privado-accounts-api_dev.json
 
       - name: Compare the two results (shift-privacy-left-app)
-        run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ./results/shift-privacy-left-app_stable.json ./results/shift-privacy-left-app_dev.json
+        run: python ./compare.py ./results/shift-privacy-left-app_stable.json ./results/shift-privacy-left-app_dev.json
 
 
       - name: Post results to slack
@@ -125,6 +125,6 @@ jobs:
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: '/home/runner/work/privado-analytics/privado-analytics/tools/comparison_report.csv'
+          file_path: '/home/runner/work/privado-analytics/privado-analytics/comparison_report.csv'
           initial_comment: 'Comparison Results generated.'
           file_type: 'csv'
