@@ -62,13 +62,13 @@ jobs:
       - name: Pass JSON (stable) to the next job
         uses: actions/upload-artifact@master
         with:
-          name: ${{matrix.repo_name}}_stable.json
+          name: ${{matrix.repo_name}}_stable
           path: /home/runner/work/privado-analytics/privado-analytics/stable_results/${{matrix.repo_name}}.json
 
       - name: Pass JSON (dev) to the next job
         uses: actions/upload-artifact@master
         with:
-          name: ${{matrix.repo_name}}_dev.json
+          name: ${{matrix.repo_name}}_dev
           path: /home/runner/work/privado-analytics/privado-analytics/dev_results/${{matrix.repo_name}}.json
 
         # For every repository, clone, scan and store the generated JSON
@@ -111,13 +111,13 @@ jobs:
         run: curl https://raw.githubusercontent.com/karan-batavia/monitoring-stability/master/compare.py --output ${GITHUB_WORKSPACE}/compare.py
     
       - name: Compare the two results (privado-analytics)
-        run: python ./compare.py ./results/privado-analytics_stable.json ./results/privado-analytics_dev.json 
+        run: python ./compare.py ./results/privado-analytics_stable/privado-analytics_stable.json ./results/privado-analytics_dev/privado-analytics_dev.json 
       
       - name: Compare the two results (privado-accounts-api)
-        run: python ./compare.py ./results/privado-accounts-api_stable.json ./results/privado-accounts-api_dev.json
+        run: python ./compare.py ./results/privado-accounts-api_stable/privado-accounts-api_stable.json ./results/privado-accounts-api_dev/privado-accounts-api_dev.json
 
       - name: Compare the two results (shift-privacy-left-app)
-        run: python ./compare.py ./results/shift-privacy-left-app_stable.json ./results/shift-privacy-left-app_dev.json
+        run: python ./compare.py ./results/shift-privacy-left-app_stable/shift-privacy-left-app_stable.json ./results/shift-privacy-left-app_dev/shift-privacy-left-app_dev.json
 
 
       - name: Post results to slack
