@@ -106,6 +106,7 @@ jobs:
       # Info -> access all the csv reports at ${GITHUB_WORKSPACE}/tools
   check_files:
     needs: generate_json_repos
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         repo_name: ["privado-analytics", "privado-accounts-api", "shift-privacy-left-app"]
