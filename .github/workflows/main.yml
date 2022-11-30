@@ -71,6 +71,12 @@ jobs:
           name: ${{matrix.repo_name}}_dev
           path: /home/runner/work/privado-analytics/privado-analytics/dev_results/${{matrix.repo_name}}.json
 
+      - name: Upload CPU and memory usage file
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{matrix.repo_name}}
+          path: /home/runner/work/privado-analytics/privado-analytics/tools/results_1.txt
+
         # For every repository, clone, scan and store the generated JSON
         # For karan-batavia/${{matrix.repo_name}}
       
@@ -113,13 +119,13 @@ jobs:
       - name: Check contents of folder
         run: cd ./results/privado-analytics_stable/ && ls -lha
       - name: Compare the two results (privado-analytics)
-        run: python ./compare.py ./results/privado-analytics_stable/privado-analytics.json ./results/privado-analytics_dev/privado-analytics.json 
+        run: python ./compare.py ./results/privado-analytics_stable/privado-analytics.json ./results/privado-analytics_dev/privado-analytics.json ./results/privado-analytics/results_1.txt
       
       - name: Compare the two results (privado-accounts-api)
-        run: python ./compare.py ./results/privado-accounts-api_stable/privado-accounts-api.json ./results/privado-accounts-api_dev/privado-accounts-api.json
+        run: python ./compare.py ./results/privado-accounts-api_stable/privado-accounts-api.json ./results/privado-accounts-api_dev/privado-accounts-api.json ./results/privado-accounts-api/results_1.txt
 
       - name: Compare the two results (shift-privacy-left-app)
-        run: python ./compare.py ./results/shift-privacy-left-app_stable/shift-privacy-left-app.json ./results/shift-privacy-left-app_dev/shift-privacy-left-app.json
+        run: python ./compare.py ./results/shift-privacy-left-app_stable/shift-privacy-left-app.json ./results/shift-privacy-left-app_dev/shift-privacy-left-app.json ./results/shift-privacy-left-app/results_1.txt
 
       - name: Check contents of folder
         run : cd /home/runner/work/privado-analytics/privado-analytics/ && ls -lha
