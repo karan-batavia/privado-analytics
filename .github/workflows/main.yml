@@ -105,6 +105,7 @@ jobs:
       # Info -> access all generated JSON  (dev privado ) files at ${GITHUB_WORKSPACE}/dev_results
       # Info -> access all the csv reports at ${GITHUB_WORKSPACE}/tools
   check_files:
+    needs: generate_json_repos
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@master
