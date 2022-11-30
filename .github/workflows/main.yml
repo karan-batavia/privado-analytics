@@ -66,7 +66,9 @@ jobs:
       - name: Compare the two results
         run: cd ${GITHUB_WORKSPACE}/tools && python ./compare.py ${GITHUB_WORKSPACE}/stable_results/${{matrix.repo_name}}.json ${GITHUB_WORKSPACE}/dev_results/${{matrix.repo_name}}.json 
 
-     
+      - name: Check
+        run: ls -lha
+
         # For every repository, clone, scan and store the generated JSON
         # For karan-batavia/${{matrix.repo_name}}
       
